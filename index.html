@@ -1,257 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Valentine Proposal</title>
-    <style>
-        /* Global styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fallback for romantic feel; cursive could be used but this is more readable */
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff6b9d 100%); /* Soft pink/red gradient */
-            color: #fff;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Proposal ❤️</title>
 
-        /* Floating hearts animation */
-        .heart {
-            position: absolute;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.7);
-            animation: float 6s linear infinite;
-            pointer-events: none;
-        }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fecfef, #ff6b9d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+}
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
+.screen {
+    display: none;
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
 
-        /* Screen container */
-        .screen {
-            text-align: center;
-            padding: 20px;
-            max-width: 600px;
-            width: 90%;
-            display: none; /* Hidden by default, shown via JS */
-        }
+.screen.active {
+    display: block;
+}
 
-        .screen.active {
-            display: block;
-        }
+.story-text {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+}
 
-        /* Text styling */
-        .story-text {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
+button {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background: #ff6b9d;
+    color: white;
+    margin: 10px;
+}
 
-        /* Button styles */
-        button {
-            background: #ff6b9d;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            margin: 10px;
-            transition: background 0.3s;
-        }
+button:hover {
+    background: #ff4a7a;
+}
 
-        button:hover {
-            background: #ff4a7a;
-        }
+#no-btn {
+    position: absolute;
+}
 
-        /* Special for No button */
-        #no-btn {
-            position: absolute; /* To allow random movement */
-        }
+.heart {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+}
 
-        /* Confetti styles */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ff6b9d;
-            animation: confetti-fall 3s linear infinite;
-            pointer-events: none;
-        }
+@keyframes float {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-100vh); }
+}
 
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100vh) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(720deg); }
-        }
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: fall 3s linear infinite;
+}
 
-        /* Heart burst styles */
-        .heart-burst {
-            position: absolute;
-            font-size: 2rem;
-            color: #ff4a7a;
-            animation: burst 2s ease-out forwards;
-        }
-
-        @keyframes burst {
-            0% { transform: scale(0) rotate(0deg); opacity: 1; }
-            100% { transform: scale(2) rotate(360deg); opacity: 0; }
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .story-text {
-                font-size: 1.2rem;
-            }
-            button {
-                font-size: 1rem;
-                padding: 8px 16px;
-            }
-        }
-    </style>
+@keyframes fall {
+    0% { transform: translateY(-100vh) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(720deg); }
+}
+</style>
 </head>
+
 <body>
-    <!-- Floating hearts background -->
-    <div id="hearts-container"></div>
 
-    <!-- Screen 1 -->
-    <div id="screen1" class="screen active">
-        <p class="story-text">Hey ❤️ I have something special to ask you...</p>
-        <button onclick="nextScreen(2)">Next</button>
+<div id="hearts"></div>
+
+<div id="screen1" class="screen active">
+    <p class="story-text">Hey ❤️ I have something special to ask you…</p>
+    <button onclick="nextScreen(2)">Next</button>
+</div>
+
+<div id="screen2" class="screen">
+    <p class="story-text">Every time I think about you, I smile without trying ✨</p>
+    <button onclick="nextScreen(3)">Next</button>
+</div>
+
+<div id="screen3" class="screen">
+    <p class="story-text">You make normal days feel special 💕</p>
+    <button onclick="nextScreen(4)">Next</button>
+</div>
+
+<div id="screen4" class="screen">
+    <p class="story-text">So I just wanted to ask you one thing… 😌</p>
+    <button onclick="nextScreen(5)">Next</button>
+</div>
+
+<div id="screen5" class="screen">
+    <p class="story-text">Will you be my Valentine? 💖</p>
+    <button id="yes-btn" onclick="sayYes()">Yes 💍</button>
+    <button id="no-btn" onmouseover="runAway()" onclick="changeNo()">No 🙈</button>
+
+    <div id="celebrate" style="display:none;">
+        <p class="story-text">Yayyy! I knew you’d say YES 💘🥰</p>
     </div>
+</div>
 
-    <!-- Screen 2 -->
-    <div id="screen2" class="screen">
-        <p class="story-text">Remember the first time we met? It was like destiny brought us together under the stars. 🌟</p>
-        <button onclick="nextScreen(3)">Next</button>
-    </div>
+<script>
+function nextScreen(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + n).classList.add('active');
+}
 
-    <!-- Screen 3 -->
-    <div id="screen3" class="screen">
-        <p class="story-text">Every laugh, every adventure, every quiet moment with you has made my life brighter. You're my everything. 💕</p>
-        <button onclick="nextScreen(4)">Next</button>
-    </div>
+const noTexts = [
+    "Try again 😏",
+    "Again 😌",
+    "No escape from me 😈",
+    "Still no? 🥺",
+    "Okay fine… YES 💍"
+];
 
-    <!-- Screen 4 -->
-    <div id="screen4" class="screen">
-        <p class="story-text">I can't imagine a future without you by my side. You've stolen my heart completely. 😍</p>
-        <button onclick="nextScreen(5)">Next</button>
-    </div>
+let noCount = 0;
 
-    <!-- Final Screen -->
-    <div id="screen5" class="screen">
-        <p class="story-text">Will you be my Valentine? 💖</p>
-        <button id="yes-btn" onclick="sayYes()">Yes 💍</button>
-        <button id="no-btn" onmouseover="moveNoBtn()" onclick="changeNoBtn()">No 🙈</button>
-        <div id="celebration" style="display: none;">
-            <p class="story-text">Yayyy! I knew you’d say YES 💘🥰</p>
-        </div>
-    </div>
+function changeNo() {
+    const btn = document.getElementById('no-btn');
 
-    <script>
-        // Function to navigate to next screen
-        function nextScreen(screenNum) {
-            // Hide all screens
-            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
-            // Show the target screen
-            document.getElementById('screen' + screenNum).classList.add('active');
-        }
+    if (noCount < noTexts.length - 1) {
+        btn.textContent = noTexts[noCount];
+        noCount++;
+        runAway();
+    } else {
+        btn.textContent = "Yes 💍";
+        btn.onclick = sayYes;
+    }
+}
 
-        // Function to move the "No" button randomly
-        function moveNoBtn() {
-            const btn = document.getElementById('no-btn');
-            const maxX = window.innerWidth - btn.offsetWidth;
-            const maxY = window.innerHeight - btn.offsetHeight;
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
-        }
+function runAway() {
+    const btn = document.getElementById('no-btn');
+    const maxX = window.innerWidth - btn.offsetWidth;
+    const maxY = window.innerHeight - btn.offsetHeight;
 
-        // Array of texts for the "No" button
-        const noTexts = ["No 🙈", "Try again 😏", "Again? 😉", "You can't escape 💕", "Come on! 😘", "Just say yes! 💖", "Yes! 💍"];
+    btn.style.left = Math.random() * maxX + "px";
+    btn.style.top = Math.random() * maxY + "px";
+}
 
-        let noClickCount = 0;
+function sayYes() {
+    document.getElementById('yes-btn').style.display = "none";
+    document.getElementById('no-btn').style.display = "none";
+    document.querySelector('#screen5 .story-text').style.display = "none";
+    document.getElementById('celebrate').style.display = "block";
+    confetti();
+}
 
-        // Function to change the "No" button text
-        function changeNoBtn() {
-            noClickCount++;
-            if (noClickCount < noTexts.length) {
-                document.getElementById('no-btn').textContent = noTexts[noClickCount];
-            } else {
-                // After all texts, change both buttons to "Yes"
-                document.getElementById('yes-btn').textContent = "Yes 💍";
-                document.getElementById('no-btn').textContent = "Yes 💍";
-                document.getElementById('no-btn').onclick = sayYes;
-                // Optionally disable moving
-                document.getElementById('no-btn').onmouseover = null;
-                document.getElementById('no-btn').style.position = 'static'; // Reset position
-            }
-        }
+function confetti() {
+    for (let i = 0; i < 80; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "%";
+        c.style.background = ["#ff6b9d", "#fecfef", "#ff9a9e"][Math.floor(Math.random()*3)];
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+    }
+}
 
-        // Function when "Yes" is clicked
-        function sayYes() {
-            // Hide the question and buttons
-            document.querySelector('#screen5 .story-text').style.display = 'none';
-            document.getElementById('yes-btn').style.display = 'none';
-            document.getElementById('no-btn').style.display = 'none';
-            // Show celebration
-            document.getElementById('celebration').style.display = 'block';
-            // Trigger confetti
-            createConfetti();
-            // Trigger heart burst
-            createHeartBurst();
-        }
+function hearts() {
+    for (let i = 0; i < 20; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = "❤️";
+        h.style.left = Math.random() * 100 + "%";
+        h.style.animationDelay = Math.random() * 5 + "s";
+        document.getElementById("hearts").appendChild(h);
+    }
+}
 
-        // Function to create floating hearts background
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = '❤️';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 6 + 's';
-                container.appendChild(heart);
-            }
-        }
+window.onload = hearts;
+</script>
 
-        // Function to create confetti animation
-        function createConfetti() {
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 3 + 's';
-                confetti.style.background = ['#ff6b9d', '#fecfef', '#ff9a9e'][Math.floor(Math.random() * 3)];
-                document.body.appendChild(confetti);
-                // Remove after animation
-                setTimeout(() => confetti.remove(), 3000);
-            }
-        }
-
-        // Function to create heart burst animation
-        function createHeartBurst() {
-            for (let i = 0; i < 10; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-burst';
-                heart.textContent = '💖';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.top = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 0.5 + 's';
-                document.body.appendChild(heart);
-                // Remove after animation
-                setTimeout(() => heart.remove(), 2000);
-            }
-        }
-
-        // Initialize hearts on load
-        window.onload = createHearts;
-    </script>
 </body>
 </html>

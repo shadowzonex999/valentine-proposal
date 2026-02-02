@@ -70,11 +70,6 @@
             background: #ff4a7a;
         }
 
-        /* Special for No button */
-        #no-btn {
-            position: absolute; /* To allow random movement */
-        }
-
         /* Confetti styles */
         .confetti {
             position: absolute;
@@ -125,11 +120,29 @@
         <button onclick="nextScreen(2)">Next</button>
     </div>
 
+    <!-- Screen 2 -->
+    <div id="screen2" class="screen">
+        <p class="story-text">Remember the first time we met? It was like destiny brought us together under the stars. 🌟</p>
+        <button onclick="nextScreen(3)">Next</button>
+    </div>
+
+    <!-- Screen 3 -->
+    <div id="screen3" class="screen">
+        <p class="story-text">Every laugh, every adventure, every quiet moment with you has made my life brighter. You're my everything. 💕</p>
+        <button onclick="nextScreen(4)">Next</button>
+    </div>
+
+    <!-- Screen 4 -->
+    <div id="screen4" class="screen">
+        <p class="story-text">I can't imagine a future without you by my side. You've stolen my heart completely. 😍</p>
+        <button onclick="nextScreen(5)">Next</button>
+    </div>
+
     <!-- Final Screen -->
     <div id="screen5" class="screen">
         <p class="story-text">Will you be my Valentine? 💖</p>
         <button id="yes-btn" onclick="sayYes()">Yes 💍</button>
-        <button id="no-btn" onmouseover="moveNoBtn()" onclick="moveNoBtn()">No 🙈</button>
+        <button id="no-btn" onclick="changeNoBtn()">No 🙈</button>
         <div id="celebration" style="display: none;">
             <p class="story-text">Yayyy! I knew you’d say YES 💘🥰</p>
         </div>
@@ -144,15 +157,22 @@
             document.getElementById('screen' + screenNum).classList.add('active');
         }
 
-        // Function to move the "No" button randomly
-        function moveNoBtn() {
-            const btn = document.getElementById('no-btn');
-            const maxX = window.innerWidth - btn.offsetWidth;
-            const maxY = window.innerHeight - btn.offsetHeight;
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
+        // Array of texts for the "No" button
+        const noTexts = ["No 🙈", "Try again 😏", "Again? 😉", "You can't escape 💕", "Come on! 😘", "Just say yes! 💖", "Yes! 💍"];
+
+        let noClickCount = 0;
+
+        // Function to change the "No" button text
+        function changeNoBtn() {
+            noClickCount++;
+            if (noClickCount < noTexts.length) {
+                document.getElementById('no-btn').textContent = noTexts[noClickCount];
+            } else {
+                // After all texts, change both buttons to "Yes"
+                document.getElementById('yes-btn').textContent = "Yes 💍";
+                document.getElementById('no-btn').textContent = "Yes 💍";
+                document.getElementById('no-btn').onclick = sayYes;
+            }
         }
 
         // Function when "Yes" is clicked
